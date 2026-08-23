@@ -1,0 +1,33 @@
+bundle bike_commute@0.2.0
+
+# Friendly everyday example: can I cycle to work today?
+type Commute
+predicate Commute.weather_dry
+predicate Commute.bike_working
+predicate Commute.route_clear
+predicate Commute.cycling_possible
+
+entity today: Commute
+
+rule cycling_is_possible($trip: Commute):
+  when $trip.weather_dry = true
+  and $trip.bike_working = true
+  and $trip.route_clear = true
+  derive $trip.cycling_possible = true
+end
+
+# These are explicit counter-rules. Open-world UNKNOWN is never treated as FALSE.
+rule rain_prevents_cycling($trip: Commute):
+  when $trip.weather_dry = false
+  derive $trip.cycling_possible = false
+end
+
+rule broken_bike_prevents_cycling($trip: Commute):
+  when $trip.bike_working = false
+  derive $trip.cycling_possible = false
+end
+
+rule blocked_route_prevents_cycling($trip: Commute):
+  when $trip.route_clear = false
+  derive $trip.cycling_possible = false
+end

@@ -1,0 +1,58 @@
+bundle procurement_approval@0.2.0
+
+# Demonstration of an internal company policy, not legal advice.
+type Purchase
+attribute Purchase.amount: Decimal
+predicate Purchase.budget_confirmed
+predicate Purchase.manager_approved
+predicate Purchase.processes_sensitive_data
+predicate Purchase.security_review_passed
+predicate Purchase.finance_approved
+predicate Purchase.purchase_approved
+
+entity analytics_subscription: Purchase
+entity office_chairs: Purchase
+entity data_platform: Purchase
+
+# Small software purchase: security review is still unknown.
+fact analytics_subscription.amount = 2400.0
+fact analytics_subscription.budget_confirmed = true
+fact analytics_subscription.manager_approved = true
+fact analytics_subscription.processes_sensitive_data = true
+
+# Ordinary low-risk purchase: enough information is already present.
+fact office_chairs.amount = 3200.0
+fact office_chairs.budget_confirmed = true
+fact office_chairs.manager_approved = true
+fact office_chairs.processes_sensitive_data = false
+
+# Larger purchase: finance approval is still unknown.
+fact data_platform.amount = 12000.0
+fact data_platform.budget_confirmed = true
+fact data_platform.manager_approved = true
+fact data_platform.processes_sensitive_data = true
+
+rule approve_low_risk_purchase($purchase: Purchase):
+  when $purchase.amount <= 5000.0
+  and $purchase.budget_confirmed = true
+  and $purchase.manager_approved = true
+  and $purchase.processes_sensitive_data = false
+  derive $purchase.purchase_approved = true
+end
+
+rule approve_sensitive_small_purchase($purchase: Purchase):
+  when $purchase.amount <= 5000.0
+  and $purchase.budget_confirmed = true
+  and $purchase.manager_approved = true
+  and $purchase.processes_sensitive_data = true
+  and $purchase.security_review_passed = true
+  derive $purchase.purchase_approved = true
+end
+
+rule approve_large_purchase($purchase: Purchase):
+  when $purchase.amount > 5000.0
+  and $purchase.budget_confirmed = true
+  and $purchase.manager_approved = true
+  and $purchase.finance_approved = true
+  derive $purchase.purchase_approved = true
+end

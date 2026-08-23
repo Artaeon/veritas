@@ -11,11 +11,17 @@ Requires Node.js 22 or newer.
 ```bash
 npm install
 npm test
+npm run demo
 npm run veritas -- check examples/people.vk
 npm run veritas -- explain examples/people.vk john.adult
 npm run veritas -- resolve examples/board-game-resolution.vk "move_allowed(turn_alpha)"
 npm run veritas -- resolve examples/board-game-resolution.vk "move_allowed(turn_alpha)" --json
 ```
+
+`npm run demo` starts a short German-language everyday example. It asks whether
+cycling to work is possible and translates the resolver's generic blockers into
+three ordinary questions. The demo is only a presentation layer; its domain
+labels do not enter the reasoning kernel.
 
 Read the [core architecture](docs/adr/0001-v0.1-core.md) and
 [V0.1 language](docs/v0.1-language.md) before extending the engine. The
