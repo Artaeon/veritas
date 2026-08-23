@@ -1,0 +1,37 @@
+name: Semantics proposal
+description: Propose a versioned change or additive semantic layer.
+title: "[Semantics]: "
+labels: [semantics]
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        V0.1 is frozen. Proposals must preserve its normative contract or define
+        an explicitly versioned additive layer.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem statement
+      description: Describe the generic limitation without domain-specific kernel logic.
+    validations:
+      required: true
+  - type: textarea
+    id: semantics
+    attributes:
+      label: Proposed semantics
+      description: Define observable behavior, edge cases, and conflict handling.
+    validations:
+      required: true
+  - type: textarea
+    id: compatibility
+    attributes:
+      label: Compatibility analysis
+      description: Explain effects on V0.1 results, proofs, canonicalization, and hashes.
+    validations:
+      required: true
+  - type: textarea
+    id: tests
+    attributes:
+      label: Required adversarial tests
+    validations:
+      required: true
