@@ -12,6 +12,12 @@ export const V01_LIMITS = Object.freeze({
   maxDerivedSupports: 100_000,
 });
 
+export const V02_RESOLUTION_LIMITS = Object.freeze({
+  maxResolutionDepth: 256,
+  maxResolutionNodes: 10_000,
+  maxResolutionFrontiers: 1_024,
+});
+
 export class ResourceLimitError extends Error {
   readonly code: string;
 

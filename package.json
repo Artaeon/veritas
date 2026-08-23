@@ -1,6 +1,6 @@
 {
   "name": "veritas",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "description": "A deterministic knowledge compiler and reasoning runtime",
   "type": "module",
@@ -13,6 +13,7 @@
     "check": "tsc -p tsconfig.json --noEmit",
     "test": "npm run build && node --test dist/tests/*.test.js",
     "hardening": "npm run check && npm test && npm audit --audit-level=high",
+    "gate:v0.2": "npm run check && npm test && npm audit --audit-level=high",
     "veritas": "npm run build --silent && node dist/src/cli.js"
   },
   "devDependencies": {

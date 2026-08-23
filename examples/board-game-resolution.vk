@@ -1,0 +1,30 @@
+bundle board_game_resolution@0.2.0
+
+# Unseen-domain V0.2 test: every rule lives in knowledge code.
+type Turn
+attribute Turn.roll: Integer
+predicate Turn.has_piece
+predicate Turn.path_clear
+predicate Turn.bonus_card
+predicate Turn.move_allowed
+
+entity turn_alpha: Turn
+entity turn_blocked: Turn
+
+fact turn_alpha.roll = 4
+fact turn_alpha.has_piece = true
+fact turn_blocked.roll = 0
+fact turn_blocked.has_piece = true
+
+rule bonus_move($turn: Turn):
+  when $turn.bonus_card = true
+  and $turn.has_piece = true
+  derive $turn.move_allowed = true
+end
+
+rule standard_move($turn: Turn):
+  when $turn.roll >= 1
+  and $turn.has_piece = true
+  and $turn.path_clear = true
+  derive $turn.move_allowed = true
+end

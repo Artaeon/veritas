@@ -6,6 +6,9 @@ import { compile } from "./compiler.js";
 import { formatCheck, formatDiagnostics, formatQuery } from "./format.js";
 import { evaluate } from "./runtime.js";
 import { ResourceLimitError } from "./limits.js";
+import { resolve } from "./resolver.js";
+import { formatResolution } from "./format.js";
+import { canonicalStringify } from "./canonical.js";
 
 function errorMessage(error: unknown): string {
   if (error instanceof ResourceLimitError) return `ERROR ${error.code}\n${error.message}`;
@@ -13,7 +16,7 @@ function errorMessage(error: unknown): string {
 }
 
 function usage(): never {
-  console.error("Usage: veritas <check|run|query|explain> <knowledge.vk> [entity.property]");
+  console.error("Usage: veritas <check|run|query|explain|resolve> <knowledge.vk> [query] [--json]");
   process.exit(2);
 }
 
@@ -29,8 +32,8 @@ async function load(path: string) {
 }
 
 async function main(): Promise<void> {
-  const [command, path, query] = process.argv.slice(2);
-  if (!command || !path || !["check", "run", "query", "explain"].includes(command)) usage();
+  const [command, path, query, option] = process.argv.slice(2);
+  if (!command || !path || !["check", "run", "query", "explain", "resolve"].includes(command)) usage();
   const loaded = await load(path);
   if (!loaded) return;
 
@@ -42,6 +45,17 @@ async function main(): Promise<void> {
     if (!query) usage();
     try {
       console.log(formatQuery(evaluate(loaded.knowledge, query), command === "explain"));
+    } catch (error) {
+      console.error(errorMessage(error));
+      process.exitCode = 1;
+    }
+    return;
+  }
+  if (command === "resolve") {
+    if (!query || (option !== undefined && option !== "--json")) usage();
+    try {
+      const result = resolve(loaded.knowledge, query);
+      console.log(option === "--json" ? canonicalStringify(result) : formatResolution(result));
     } catch (error) {
       console.error(errorMessage(error));
       process.exitCode = 1;
