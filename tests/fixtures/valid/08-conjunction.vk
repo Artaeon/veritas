@@ -1,0 +1,15 @@
+bundle conjunction@0.1.0
+type Candidate
+attribute Candidate.score: Integer
+attribute Candidate.reviewed: Boolean
+predicate Candidate.accepted
+entity complete: Candidate
+entity incomplete: Candidate
+fact complete.score = 90
+fact complete.reviewed = true
+fact incomplete.score = 90
+rule accept($c: Candidate):
+  when $c.score >= 80
+  and $c.reviewed = true
+  derive $c.accepted = true
+end

@@ -1,0 +1,40 @@
+bundle electrical_protection@0.1.0
+
+# This domain is intentionally expressed entirely as knowledge code. The kernel
+# contains no circuit, current, voltage, or protection concepts.
+type Circuit
+attribute Circuit.voltage: Decimal
+attribute Circuit.current: Decimal
+predicate Circuit.energized
+predicate Circuit.overcurrent
+predicate Circuit.trip_required
+
+entity workshop_branch: Circuit
+entity lighting_branch: Circuit
+entity unmeasured_branch: Circuit
+
+fact workshop_branch.voltage = 230.0
+fact workshop_branch.current = 18.25
+fact lighting_branch.voltage = 230.0
+fact lighting_branch.current = 4.5
+
+rule energized_when_voltage_present($circuit: Circuit):
+  when $circuit.voltage > 0.0
+  derive $circuit.energized = true
+end
+
+rule overcurrent_at_sixteen_amps($circuit: Circuit):
+  when $circuit.current >= 16.0
+  derive $circuit.overcurrent = true
+end
+
+rule not_overcurrent_below_sixteen_amps($circuit: Circuit):
+  when $circuit.current < 16.0
+  derive $circuit.overcurrent = false
+end
+
+rule trip_energized_overcurrent_circuit($circuit: Circuit):
+  when $circuit.energized = true
+  and $circuit.overcurrent = true
+  derive $circuit.trip_required = true
+end

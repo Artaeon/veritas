@@ -1,0 +1,25 @@
+{
+  "name": "veritas",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A deterministic knowledge compiler and reasoning runtime",
+  "type": "module",
+  "bin": {
+    "veritas": "dist/src/cli.js"
+  },
+  "scripts": {
+    "clean": "node -e \"require('node:fs').rmSync('dist', { recursive: true, force: true })\"",
+    "build": "npm run clean --silent && tsc -p tsconfig.json",
+    "check": "tsc -p tsconfig.json --noEmit",
+    "test": "npm run build && node --test dist/tests/*.test.js",
+    "hardening": "npm run check && npm test && npm audit --audit-level=high",
+    "veritas": "npm run build --silent && node dist/src/cli.js"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "typescript": "^5.8.3"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

@@ -1,0 +1,5 @@
+bundle integer@0.1.0
+type Thing
+attribute Thing.count: Integer
+entity item: Thing
+fact item.count = 42

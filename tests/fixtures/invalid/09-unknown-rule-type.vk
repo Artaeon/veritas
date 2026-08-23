@@ -1,0 +1,5 @@
+bundle invalid@0.1.0
+rule invalid($x: Missing):
+  when $x.ready = true
+  derive $x.ready = true
+end

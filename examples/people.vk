@@ -1,0 +1,24 @@
+bundle people@0.1.0
+
+type Person
+attribute Person.age: Integer
+attribute Person.income: Decimal
+predicate Person.adult
+predicate Person.minor
+
+entity john: Person
+entity jane: Person
+
+fact john.age = 21
+fact john.income = 24000.50
+fact jane.age = 16
+
+rule adult_by_age($person: Person):
+  when $person.age >= 18
+  derive $person.adult = true
+end
+
+rule minor_by_age($person: Person):
+  when $person.age < 18
+  derive $person.minor = true
+end

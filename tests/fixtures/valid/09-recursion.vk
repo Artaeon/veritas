@@ -1,0 +1,20 @@
+bundle recursion@0.1.0
+type Node
+predicate Node.a
+predicate Node.b
+predicate Node.c
+entity seeded: Node
+entity empty: Node
+fact seeded.a = true
+rule a_to_b($x: Node):
+  when $x.a = true
+  derive $x.b = true
+end
+rule b_to_c($x: Node):
+  when $x.b = true
+  derive $x.c = true
+end
+rule c_to_a($x: Node):
+  when $x.c = true
+  derive $x.a = true
+end

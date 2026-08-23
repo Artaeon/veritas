@@ -1,0 +1,8 @@
+bundle invalid@0.1.0
+type Thing
+predicate Thing.ready
+predicate Thing.output
+rule invalid($x: Thing):
+  when $x.ready > true
+  derive $x.output = true
+end

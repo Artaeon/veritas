@@ -1,0 +1,10 @@
+bundle decimal@0.1.0
+type Account
+attribute Account.balance: Decimal
+predicate Account.positive
+entity account: Account
+fact account.balance = 0.100
+rule positive($x: Account):
+  when $x.balance > 0.09
+  derive $x.positive = true
+end

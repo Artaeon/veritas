@@ -1,0 +1,14 @@
+bundle conflict@0.1.0
+type Subject
+predicate Subject.trigger
+predicate Subject.decision
+entity item: Subject
+fact item.trigger = true
+rule allow($x: Subject):
+  when $x.trigger = true
+  derive $x.decision = true
+end
+rule deny($x: Subject):
+  when $x.trigger = true
+  derive $x.decision = false
+end

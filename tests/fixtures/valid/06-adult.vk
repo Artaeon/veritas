@@ -1,0 +1,10 @@
+bundle adult@0.1.0
+type Person
+attribute Person.age: Integer
+predicate Person.adult
+entity john: Person
+fact john.age = 21
+rule adult($p: Person):
+  when $p.age >= 18
+  derive $p.adult = true
+end

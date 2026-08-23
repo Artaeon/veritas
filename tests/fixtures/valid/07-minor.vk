@@ -1,0 +1,10 @@
+bundle minor@0.1.0
+type Person
+attribute Person.age: Integer
+predicate Person.adult
+entity jane: Person
+fact jane.age = 16
+rule not_adult($p: Person):
+  when $p.age < 18
+  derive $p.adult = false
+end

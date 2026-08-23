@@ -1,0 +1,4 @@
+bundle invalid@0.1.0
+type Thing
+attribute Thing.value: Integer
+fact item.value = 1

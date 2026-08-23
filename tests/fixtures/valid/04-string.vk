@@ -1,0 +1,10 @@
+bundle strings@0.1.0
+type Item
+attribute Item.label: String
+predicate Item.match
+entity item: Item
+fact item.label = "a # label"
+rule matches($x: Item):
+  when $x.label = "a # label"
+  derive $x.match = true
+end

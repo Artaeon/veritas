@@ -1,0 +1,5 @@
+bundle invalid@0.1.0
+type Thing
+attribute Thing.value: Integer
+entity item: Thing
+fact item.value = "one"
