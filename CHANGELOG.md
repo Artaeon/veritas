@@ -11,6 +11,16 @@ All notable changes to Veritas are documented in this file. The project follows
 - A guided German-language bicycle commute demo.
 - Procurement approval and bicycle commute knowledge examples.
 - Regression coverage for the new examples and presentation layer.
+- Public security, contribution, conduct, issue, and pull-request policies.
+- GitHub Actions verification, CodeQL analysis, and Dependabot configuration.
+- Explicit package license, author, export, and distribution metadata.
+
+### Changed
+
+- Reworked the README to state project maturity, four-valued semantics,
+  capabilities, deliberate limitations, safety boundaries, and verified usage.
+- Restricted future package artifacts to the public runtime API and essential
+  documentation while keeping npm publication disabled.
 
 ## 0.2.0 - 2026-08-23
 
