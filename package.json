@@ -3,7 +3,32 @@
   "version": "0.2.0",
   "private": true,
   "description": "A deterministic knowledge compiler and reasoning runtime",
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Artaeon",
+    "email": "raphael.lugmayr@stoicera.com"
+  },
+  "keywords": [
+    "deterministic-reasoning",
+    "knowledge-representation",
+    "logic-programming",
+    "paraconsistent-logic",
+    "proof-traces"
+  ],
   "type": "module",
+  "main": "./dist/src/index.js",
+  "types": "./dist/src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "import": "./dist/src/index.js"
+    }
+  },
+  "files": [
+    "dist/src/",
+    "README.md",
+    "LICENSE"
+  ],
   "bin": {
     "veritas": "dist/src/cli.js"
   },
