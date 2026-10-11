@@ -43,7 +43,7 @@
     "veritas": "npm run build --silent && node dist/src/cli.js"
   },
   "devDependencies": {
-    "@types/node": "^22.15.0",
+    "@types/node": "^26.6.4",
     "typescript": "^5.8.3"
   },
   "engines": {
